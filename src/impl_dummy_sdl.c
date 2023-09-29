@@ -180,30 +180,6 @@ int SDL_AtomicSet(SDL_atomic_t *a, int v) {
     return old;
 }
 
-/*
-static Uint32 SDL_INIT = 0;
-
-int SDL_Init(Uint32 flags) {
-    return SDL_InitSubSystem(flags);
-}
-
-Uint32 SDL_WasInit(Uint32 flags) {
-    if (flags == 0) {
-        return SDL_INIT;
-    } else {
-        return SDL_INIT & flags;
-    }
-}
-
-int SDL_InitSubSystem(Uint32 flags) {
-    SDL_INIT = SDL_INIT | flags;
-    return 0;
-}
-
-void SDL_QuitSubSystem(Uint32 flags) {
-}
-*/
-
 int SDL_EventsInit(void) {
     return 0;
 }
