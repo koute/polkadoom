@@ -1,0 +1,14 @@
+#define SYS_open 1
+#define SYS_close 2
+#define SYS_read 3
+#define SYS_readv 4
+#define SYS_writev 5
+#define SYS_lseek 6
+#define SYS_fcntl 7
+#define SYS_ioctl 8
+#define SYS_mkdir 9
+#define SYS_rmdir 10
+#define SYS_rename 11
+#define SYS_unlink 12
+#define SYS_futex 13
+#define SYS_rt_sigqueueinfo 14
