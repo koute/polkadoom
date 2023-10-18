@@ -25,7 +25,8 @@ rm -f output/doom.elf
     -gdwarf-5 \
     -g3 \
     -O3 \
-    -fdebug-prefix-map=$PWD=/tmp/polkadoom \
+    -fdebug-prefix-map=$PWD=polkadoom \
+    -fdebug-prefix-map=/opt/clang-rv32e=/usr \
     -Isrc/include \
     -I$SDL_ROOT/include \
     -I$SDL_MIXER_ROOT/include \
