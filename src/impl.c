@@ -144,6 +144,9 @@ long __syscall3(long n, long a0, long a1, long a2) {
             flush_stdio();
 
             if (!strcmp(filename, "doom1.wad")) {
+                fprintf(stderr, "sys_open: fetching rom size...\n");
+                flush_stdio();
+
                 ROM_SIZE = ext_rom_size();
                 fprintf(stderr, "sys_open: fetched rom size: %li\n", ROM_SIZE);
                 flush_stdio();
