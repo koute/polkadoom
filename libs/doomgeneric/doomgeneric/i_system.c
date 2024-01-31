@@ -460,6 +460,7 @@ void I_Error (char *error, ...)
 
     exit(-1);
 #else
+    exit(-1);
     while (true)
     {
     }
