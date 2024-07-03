@@ -13,9 +13,9 @@ DLMALLOC_ROOT=libs/dlmalloc
 mkdir -p output
 rm -f output/doom.elf
 
-/opt/clang-rv32e/bin/clang \
+clang \
     -Wl,--error-limit=0 \
-    --target=riscv32 -march=rv32em -mabi=ilp32e -nostdlib -nodefaultlibs \
+    --target=riscv32 -march=rv32emc -mabi=ilp32e -nostdlib -nodefaultlibs \
     -Wl,--emit-relocs \
     -Wl,--no-relax \
     -mrelax \
@@ -26,7 +26,6 @@ rm -f output/doom.elf
     -g3 \
     -O3 \
     -fdebug-prefix-map=$PWD=polkadoom \
-    -fdebug-prefix-map=/opt/clang-rv32e=/usr \
     -Isrc/include \
     -I$SDL_ROOT/include \
     -I$SDL_MIXER_ROOT/include \
@@ -68,7 +67,7 @@ rm -f output/doom.elf
     -Wno-string-plus-int \
     -fno-exceptions \
     -fno-rtti \
-    /opt/clang-rv32e/lib/linux/libclang_rt.builtins-riscv32.a \
+    $PWD/libclang_rt.builtins-riscv32.a \
     src/impl.c \
     src/impl_dummy_libc.c \
     src/impl_dummy_sdl.c \
