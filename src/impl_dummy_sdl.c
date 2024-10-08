@@ -104,7 +104,7 @@ double SDL_strtod(const char * nptr, char ** endptr) {
     return strtod(nptr, endptr);
 }
 
-long long SDL_strtoll(const char * nptr, char ** endptr, int base) {
+int64_t SDL_strtoll(const char * nptr, char ** endptr, int base) {
     return strtoll(nptr, endptr, base);
 }
 
