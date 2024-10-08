@@ -10,12 +10,24 @@ ADLMIDI_ROOT=libs/libADLMIDI
 LIBCXX_ROOT=libs/libcxx
 DLMALLOC_ROOT=libs/dlmalloc
 
+TARGET_BITNESS=$1
+TARGET_ABI32=ilp32e
+TARGET_ABI64=lp64e
+
+case "$TARGET_BITNESS" in
+	64) TARGET_ABI=lp64e; MUSL_TARGET_ARCH=riscv64 ;;
+	32) TARGET_ABI=ilp32e; MUSL_TARGET_ARCH=riscv32 ;;
+    *) echo "usage: bash build.sh {32,64}"; exit 1 ;;
+esac
+
 mkdir -p output
 rm -f output/doom.elf
+echo "building for rv${TARGET_BITNESS}"
 
-clang \
+TARGET_FLAGS="--target=riscv${TARGET_BITNESS}-unknown-none-elf -march=rv${TARGET_BITNESS}emac -mabi=${TARGET_ABI} -nostdlib -nodefaultlibs"
+
+clang $TARGET_FLAGS \
     -Wl,--error-limit=0 \
-    --target=riscv32 -march=rv32emc -mabi=ilp32e -nostdlib -nodefaultlibs \
     -Wl,--emit-relocs \
     -Wl,--no-relax \
     -mrelax \
@@ -38,6 +50,7 @@ clang \
     -I$MUSL_ROOT/src/internal \
     -I$MUSL_ROOT/src/multibyte \
     -I$MUSL_ROOT/arch/generic \
+    -I$MUSL_ROOT/arch/$MUSL_TARGET_ARCH \
     -DHAVE_STDIO_H \
     -DHAVE_O_CLOEXEC \
     -DDYNAPI_NEEDS_DLOPEN=1 \
@@ -67,7 +80,7 @@ clang \
     -Wno-string-plus-int \
     -fno-exceptions \
     -fno-rtti \
-    $PWD/libclang_rt.builtins-riscv32.a \
+    "${PWD}/libclang_rt.builtins-riscv${TARGET_BITNESS}.a" \
     src/impl.c \
     src/impl_dummy_libc.c \
     src/impl_dummy_sdl.c \
@@ -334,4 +347,4 @@ clang \
     $DOOM_ROOT/i_video.c \
     $DOOM_ROOT/doomgeneric.c \
     $DOOM_ROOT/mus2mid.c \
-    -o output/doom.elf
+    -o output/doom${1}.elf
