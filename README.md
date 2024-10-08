@@ -8,9 +8,12 @@ support for audio due to built-in OPL emulation, which doomgeneric doesn't have.
 
 ## Building
 
-1. Build and install clang for RV32E. (Scripts to build a toolchain are [available here](https://github.com/koute/rustc-rv32e).)
-2. Run `./build.sh`.
-3. Run `polkatool link -s output/doom.elf -o output/doom.polkavm`.
+1. Get a clang for RV32E
+	- Upstream LLVM from version 18.X and above support the RV32E target
+	- Scripts to build a toolchain are [available here](https://github.com/paritytech/rustc-rv32e-toolchain) or [here](https://github.com/xermicus/revive/blob/main/build-llvm.sh)
+2. Make sure that the compatible LLVM build is found via `$PATH`. Verify: `clang --target=riscv32 -print-supported-extensions 2>&1 | grep 'RV{32,64}E'`
+3. Run `./build.sh`.
+4. Run `polkatool link -s output/doom.elf -o output/doom.polkavm`.
 
 ## License
 
