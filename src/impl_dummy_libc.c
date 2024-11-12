@@ -15,8 +15,8 @@ int __aio_close(int fd) {
 
 static unsigned char TLS[256];
 
-unsigned char * __get_tp() {
-    return TLS;
+uintptr_t __get_tp() {
+    return (uintptr_t)TLS;
 }
 
 int system(const char *command) {
