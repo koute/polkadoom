@@ -21,7 +21,7 @@ case "$TARGET_BITNESS" in
 esac
 
 mkdir -p output
-rm -f output/doom.elf
+rm -f output/doom${1}.elf
 echo "building for rv${TARGET_BITNESS}"
 
 TARGET_FLAGS="--target=riscv${TARGET_BITNESS}-unknown-none-elf -march=rv${TARGET_BITNESS}emac -mabi=${TARGET_ABI} -nostdlib -nodefaultlibs"
